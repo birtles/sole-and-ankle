@@ -33,7 +33,7 @@ const ShoeCard = ({
 
   return (
     <Link href={`/shoe/${slug}`}>
-      <Wrapper>
+      <Wrapper variant={variant}>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
         </ImageWrapper>
@@ -58,6 +58,25 @@ const Link = styled.a`
 
 const Wrapper = styled.article`
   flex: 1;
+  position: relative;
+
+  ${({ variant }) =>
+    variant !== "default" &&
+    `
+    &::after {
+      content: ${variant === "new-release" ? "'Just released!'" : "'Sale'"};
+      position: absolute;
+      top: 12px;
+      right: -4px;
+      padding: 7px 9px;
+      background: ${
+        variant === "new-release" ? COLORS.secondary : COLORS.primary
+      };
+      border-radius: 2px;
+      color: ${COLORS.white};
+      font-weight: 700;
+    }
+  `}
 `;
 
 const ImageWrapper = styled.div`
